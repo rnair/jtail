@@ -17,8 +17,13 @@ public class TailTask<T extends TailedData> implements JTailTask<T> {
 	public T call() throws Exception {
 		ContentReader contentReader = this.taskConfig.getContentReader();
 		contentReader.setTailEventCallback(this.taskConfig.getEventCallback());
-		contentReader.read(new File("/Users/rakesh/Desktop/sam.txt"));
+		contentReader.read(new File(this.taskConfig.getFileUrl()));
 		return null;
+	}
+
+	public void setTailTaskConfig(TailTaskConfiguration config) {
+		this.taskConfig = config;
+		
 	}
 
 }

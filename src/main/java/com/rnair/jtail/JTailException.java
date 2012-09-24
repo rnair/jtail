@@ -24,7 +24,7 @@ public class JTailException extends RuntimeException {
 
 	@Override
 	public String toString() {
-		return "WINTailException [errorCode=" + errorCode + "]"+this.getLocalizedMessage();
+		return "JTailException [errorCode=" + errorCode + "]"+this.getLocalizedMessage();
 	}
 	
 	

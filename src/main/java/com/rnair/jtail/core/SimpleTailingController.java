@@ -19,6 +19,8 @@ public class SimpleTailingController implements TailingController {
 	protected ContentReader contentReader;
 
 	protected TailEventCallback eventCallBack;
+	
+	protected JTailConfiguration jTailConfig;
 
 	private Future<TailedData> tailTaskFuture;
 
@@ -33,6 +35,7 @@ public class SimpleTailingController implements TailingController {
 		TailTaskConfiguration taskConfig = new TailTaskConfiguration();
 		taskConfig.setContentReader(this.contentReader);
 		taskConfig.setEventCallback(this.eventCallBack);
+		taskConfig.setFileUrl(this.jTailConfig.getFile());
 
 		JTailTask<TailedData> tailTask = new TailTask<TailedData>(taskConfig);
 		JTailTask<TailedData> printTask = new PrintTask<TailedData>(taskConfig);
@@ -44,11 +47,13 @@ public class SimpleTailingController implements TailingController {
 	public void stop() {
 		this.tailTaskFuture.cancel(true);
 		this.printTaskFuture.cancel(true);
+		this.taskRunner.stop();
 	}
 
 	public void initialize(JTailConfiguration config) {
+		this.jTailConfig = config;
 		this.taskRunner = new TaskRunner<JTailTask<TailedData>>();
-		this.contentReader = ContentReaderFactory.get(null);
+		this.contentReader = ContentReaderFactory.get(config);
 		this.eventCallBack = new TailEventCallback() {
 			private BlockingQueue<TailedData> queue = new LinkedBlockingQueue<TailedData>();
 

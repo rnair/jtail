@@ -24,4 +24,8 @@ public class PrintTask<T extends TailedData> implements JTailTask<T> {
 		return null;
 	}
 
+	public void setTailTaskConfig(TailTaskConfiguration config) {
+		this.taskConfig = config;
+	}
+
 }

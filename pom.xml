@@ -4,7 +4,7 @@
 
 	<groupId>com.rnair</groupId>
 	<artifactId>jtail</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>JTail</name>
@@ -28,5 +28,79 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<configuration>
+						<archive>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<mainClass>com.rnair.jtail.JTail</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.akathist.maven.plugins.launch4j</groupId>
+					<artifactId>launch4j-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>l4j-clui</id>
+							<phase>package</phase>
+							<goals>
+								<goal>launch4j</goal>
+							</goals>
+							<configuration>
+								<dontWrapJar>false</dontWrapJar>
+								<headerType>console</headerType>
+								<outfile>target/${project.artifactId}.exe</outfile>
+								<jar>target/${project.artifactId}-${project.version}.jar</jar>
+								<errTitle>jtail</errTitle>
+								<jre>
+									<minVersion>1.6.0</minVersion>
+								</jre>
+								<classPath>
+									<mainClass>com.rnair.jtail.JTail</mainClass>
+									<addDependencies>true</addDependencies>
+									<preCp>anything</preCp>
+								</classPath>
+								<versionInfo>
+									<fileVersion>${project.version}</fileVersion>
+									<txtFileVersion>${project.version}</txtFileVersion>
+									<fileDescription>tail emulator for win</fileDescription>
+									<copyright>Copyright (c) Rakesh Nair</copyright>
+									<productVersion>${project.version}</productVersion>
+									<txtProductVersion>${project.version}</txtProductVersion>
+									<productName>${project.artifactId}</productName>
+									<internalName>${project.groupId}.${project.artifactId}</internalName>
+									<originalFilename>${project.artifactId}.exe</originalFilename>
+								</versionInfo>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<configuration>
+						<descriptors>
+							<descriptor>assembly.xml</descriptor>
+						</descriptors>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 </project>
