@@ -9,9 +9,9 @@ public class JTail {
 	public static void main(String[] args) {
 		try {
 			if (verifyCLI(args)) {
-				
+				//Build the configuration from CLI
 				JTailConfiguration config = JTailConfiguration.of(args);
-
+				
 				TailingController controller = new SimpleTailingController();
 				controller.initialize(config);
 				controller.start();

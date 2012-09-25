@@ -11,6 +11,26 @@ public class JTailConfiguration {
 	private JTailConfiguration() {
 		super();
 	}
+	
+	/**
+	 * static factory method for JTailConfiguration
+	 * @param args CLI
+	 */
+	public static JTailConfiguration of(String... args) {
+		JTailConfiguration config = new JTailConfiguration();
+		for (String arg : args) {
+			if (arg.equalsIgnoreCase("-f")) {
+				config.setForce(true);
+			}
+			if (arg.startsWith("-n")) {
+				String showLineArg = arg;
+				String showlines = showLineArg.substring(2);
+				config.setShowLines(Long.parseLong(showlines));
+			}
+		}
+		config.setFile(args[2]);
+		return config;
+	}
 
 	public String getFile() {
 		return file;
@@ -34,23 +54,6 @@ public class JTailConfiguration {
 
 	public void setShowLines(long showLines) {
 		this.showLines = showLines;
-	}
-
-	public static JTailConfiguration of(String... args) {
-		JTailConfiguration config = new JTailConfiguration();
-		System.out.println(args);
-		for (String arg : args) {
-			if (arg.equalsIgnoreCase("-f")) {
-				config.setForce(true);
-			}
-			if (arg.startsWith("-n")) {
-				String showLineArg = arg;
-				String showlines = showLineArg.substring(2);
-				config.setShowLines(Long.parseLong(showlines));
-			}
-		}
-		config.setFile(args[2]);
-		return config;
 	}
 
 }

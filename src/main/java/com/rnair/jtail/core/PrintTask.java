@@ -11,9 +11,7 @@ public class PrintTask<T extends TailedData> implements JTailTask<T> {
 
 	protected PrintStream ps;
 
-	public PrintTask(TailTaskConfiguration config) {
-		this.taskConfig = config;
-	}
+	public PrintTask(){}
 
 	public T call() throws Exception {
 		

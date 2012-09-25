@@ -10,9 +10,7 @@ public class TailTask<T extends TailedData> implements JTailTask<T> {
 
 	protected TailTaskConfiguration taskConfig;
 
-	public TailTask(TailTaskConfiguration taskConfig) {
-		this.taskConfig = taskConfig;
-	}
+	public TailTask() {}
 
 	public T call() throws Exception {
 		ContentReader contentReader = this.taskConfig.getContentReader();

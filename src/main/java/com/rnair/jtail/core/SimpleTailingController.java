@@ -37,8 +37,10 @@ public class SimpleTailingController implements TailingController {
 		taskConfig.setEventCallback(this.eventCallBack);
 		taskConfig.setFileUrl(this.jTailConfig.getFile());
 
-		JTailTask<TailedData> tailTask = new TailTask<TailedData>(taskConfig);
-		JTailTask<TailedData> printTask = new PrintTask<TailedData>(taskConfig);
+		JTailTask<TailedData> tailTask = new TailTask<TailedData>();
+		tailTask.setTailTaskConfig(taskConfig);
+		JTailTask<TailedData> printTask = new PrintTask<TailedData>();
+		printTask.setTailTaskConfig(taskConfig);
 		this.tailTaskFuture = this.taskRunner.run(tailTask);
 		this.printTaskFuture = this.taskRunner.run(printTask);
 
